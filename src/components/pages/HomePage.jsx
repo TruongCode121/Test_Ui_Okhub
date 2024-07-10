@@ -238,7 +238,7 @@ const HomePage = () => {
           <Footer></Footer>
         </div>
       </FieldLayout>
-      <div className="fixed top-[34.55rem] right-[0.5rem] z-50">
+      <div className="fixed top-[34.55rem] right-[0.5rem] z-50 block lg:hidden">
         <div className="flex flex-col justify-center items-center gap-[1rem]">
           <div
             className="bg-[#E64827] w-[3.125rem] h-[3.125rem]
