@@ -1,5 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ArrowBigTopBtn, ArrowBottom, ArrowBtn } from "../../assets/icon";
+import {
+  ArrowBigTopBtn,
+  ArrowBottom,
+  ArrowBtn,
+  ArrowLeft,
+  ArrowRightUp,
+  CaretDown,
+} from "../../assets/icon";
 import {
   BG,
   Group,
@@ -21,6 +28,12 @@ import {
   Section2ImgVideo,
   PhoneContact,
   Bars,
+  NuiMobie,
+  OverMotoTourMobi,
+  BG_Mountain,
+  BGMobiMenu,
+  Close,
+  Logo,
 } from "../../assets/img";
 import Header from "../Layout/Header";
 import styled from "styled-components";
@@ -33,98 +46,69 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from "gsap";
 import SlideFooter from "../Layout/SlideFooter";
 import { FieldLayout, FileldCheck } from "../field";
+import Section2UI from "../Layout/Section2UI";
 gsap.registerPlugin(ScrollTrigger);
 
-const BGStyless = styled.div`
-  background: url(${BG}) lightgray 100% / cover no-repeat;
-  background-color: #122718;
+const BgMenuMobi = styled.div`
+  background: linear-gradient(
+      180deg,
+      #122718 0%,
+      rgba(18, 39, 24, 0) 35%,
+      rgba(18, 39, 24, 0) 70%,
+      #122718 100%
+    ),
+    url(${BGMobiMenu}) lightgray 50% / cover no-repeat;
+  background-color: #1a543a;
 `;
-// const BgFooterStyless = styled.div`
-//   background: url(${Group}) lightgray 100% / cover no-repeat;
-// `;
-const SpinStyless = styled.div`
-  .img_spin {
-    animation: spin 20s linear infinite;
+const ULMenuStyle = styled.div`
+  list-style-type: none;
+
+  li {
+    width: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   }
-  @keyframes spin {
-    to {
-      transform: rotate(-360deg);
+  li:last-child {
+    border-bottom: 0;
+  }
+  .borderTop {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  .item {
+    width: 50%;
+    /* background-color: aquamarine; */
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0 8px;
+  }
+  .sub_menu {
+    /* background-color: antiquewhite; */
+    margin-top: 1rem;
+    li {
+      padding: 1.125rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      font-weight: 500;
+      opacity: 0.5;
+      cursor: pointer;
+    }
+    li:first-child {
+      opacity: 1;
+    }
+    li:last-child {
+      border-bottom: 0;
+      padding: 1.25rem 0 0;
     }
   }
 `;
 const HomePage = () => {
-  const refImgMotoTour = useRef();
-  useEffect(() => {
-    // const newTl = gsap.timeline();
-    const el = refImgMotoTour.current;
-    gsap.fromTo(
-      el,
-      { x: 400 },
-      {
-        x: 0,
-        duration: 4,
-        scrollTrigger: {
-          trigger: el,
-        },
-      }
-    );
-    gsap.fromTo(
-      ".videoSec2",
-      { scale: 0.93, y: 15 },
-      {
-        scale: 1.9,
-        y: -190,
-        duration: 4,
-        scrollTrigger: {
-          trigger: ".videoSec2",
-        },
-      }
-    );
-    gsap.fromTo(
-      "#imgBgVideo",
-      { opacity: 1 },
-      {
-        opacity: 0,
-        duration: 4,
-        scrollTrigger: {
-          trigger: "#imgBgVideo",
-        },
-      }
-    );
-  }, []);
-  const handleResetTrigger = () => {
-    const el = refImgMotoTour.current;
-    gsap.fromTo(
-      el,
-      { x: 400 },
-      {
-        x: 0,
-        duration: 4,
-        scrollTrigger: {
-          trigger: el,
-        },
-      }
-    );
-  };
-  const handleResetTrigger1 = () => {
-    const el = refImgMotoTour.current;
-    gsap.fromTo(
-      el,
-      { x: 0 },
-      {
-        x: 400,
-        duration: 4,
-        scrollTrigger: {
-          trigger: el,
-        },
-      }
-    );
-  };
-  const UpText = (text) => {
-    return text.toUpperCase();
-  };
   const [tgMenu, setTgMenu] = useState(false);
-
+  const [tgSubMenu, setTgSubMenu] = useState(false);
+  const handleOpenSubMenu = () => {
+    setTgSubMenu(true);
+  };
+  const handleCloseSubMenu = () => {
+    setTgSubMenu(false);
+  };
   const handleOpenMenu = () => {
     setTgMenu(true);
   };
@@ -146,184 +130,106 @@ const HomePage = () => {
       <FieldLayout className="relative">
         <BannerTop></BannerTop>
 
-        <div className="absolute top-0 lg:top-0 w-[30rem] lg:w-0">
+        <div className="absolute top-0 lg:top-0 w-full lg:w-0">
           <img src={Bars} alt="" className="w-full object-cover lg:hidden" />
           <div className="-mt-5 lg:mt-0">
             <Header handleOpenMenu={handleOpenMenu}></Header>
           </div>
         </div>
-        <div
-          onClick={handleCloseMenu}
-          className={`absolute top-0 left-0 bg-black ${
-            tgMenu ? "opacity-45 " : "opacity-0 pointer-events-none"
-          } h-full w-full transition-all duration-700`}
-        ></div>
         <Menu handleCloseMenu={handleCloseMenu} tgMenu={tgMenu}></Menu>
-        {/* section 2 */}
-        <div
-          className={`h-[160.458rem] w-full relative bg-[#122718] ${
-            tgMenu ? "pointer-events-none" : ""
+        {/* section 2 pc */}
+        <Section2UI tgMenu={tgMenu}></Section2UI>
+        {/* menu mobi */}
+        <BgMenuMobi
+          className={`z-40 lg:hidden bg-red-500 overflow-y-auto  px-[1.25rem] h-[82.44144rem] w-full absolute top-0 bottom-0 transition-all duration-500 ${
+            tgMenu ? "" : "translate-y-[-100%]"
           }`}
         >
-          <div className="absolute -top-[1.1rem] w-full h-[calc(100%+1.1rem)]  overflow-hidden">
-            <Section2></Section2>
-            <div className="absolute top-[43rem]">
-              <BGStyless className=" h-[90.6875rem] w-full mt-[4rem] ">
-                <img src={OverMotoTour} alt="" className="h-full w-full" />
-              </BGStyless>
+          <div className="flex justify-between mt-[3.41rem]">
+            <div>
+              <img src={Logo} alt="" />
             </div>
-            <div className="w-[102.6875rem] h-[50.10013rem] opacity-15 absolute top-[15.61rem] ">
-              <img src={Group} alt="" className="absolute bottom-10" />
+            <div className={`cursor-pointer`} onClick={handleCloseMenu}>
+              <img src={Close} alt="" />
             </div>
-            <div className="absolute w-full">
-              <div className="flex justify-center px-[17.25rem] ">
-                <div className="w-[65rem] h-[46.3125rem] flex flex-col items-center gap-[4rem]">
-                  <div>
-                    <img src={GroupMap} alt="" />
+          </div>
+          <div className="mt-[4rem]">
+            <ULMenuStyle className="trip_font text-[2rem] font-bold w-full">
+              <LiMenu>Home</LiMenu>
+              <LiMenu>About Us</LiMenu>
+              <div
+                className={`${
+                  tgSubMenu
+                    ? "h-[12.7rem] opacity-100"
+                    : "h-0 opacity-0 pointer-events-none"
+                } transition-all duration-700 w-[11.3rem]`}
+              >
+                <div
+                  className="flex items-center gap-x-2 cursor-pointer"
+                  onClick={handleCloseSubMenu}
+                >
+                  <div className="">
+                    <ArrowLeft color="#CF4124"></ArrowLeft>
                   </div>
-                  <div className="londrina_font w-[53.75rem] text-center">
-                    Hong Hao Travel is a travel company in Ha Giang, we
-                    specialize in organizing unforgettable tours to explore Ha
-                    Giang loop but still focus on the pristine nature of nature.
-                  </div>
-                  <SpinStyless className="flex">
-                    <AnimationSpin children=""></AnimationSpin>
-                    <AnimationSpin></AnimationSpin>
-                    <AnimationSpin status={2}>
-                      <div>
-                        <div>{UpText("Tour guide")}</div>
-                        <div className="tracking-tight">
-                          {" "}
-                          {UpText("with good English")}
-                        </div>
-                      </div>
-                    </AnimationSpin>
-                    <AnimationSpin children=""></AnimationSpin>
-                    <AnimationSpin status={2}>
-                      <div>
-                        <div>{UpText("Unique")}</div>
-                        <div> {UpText("Experiences")}</div>
-                      </div>
-                    </AnimationSpin>
-                  </SpinStyless>
-                </div>
-              </div>
-              <div className="flex justify-center mt-[6.63rem]">
-                <div className="flex flex-col items-center">
-                  <div className="trip_font font-semibold text-[0.875rem]">
-                    EXPLORE YOUR JOURNEY WITH US
-                  </div>
-                  <div className="mt-[1.81rem]">
-                    <ArrowBottom></ArrowBottom>
-                  </div>
-                </div>
-              </div>
-              <div className="pl-[6.75rem] w-full h-[44.375rem] flex justify-between items-center ">
-                <div className="w-1/2">
-                  <div className="content w-[38.8125rem] h-[30.375rem] text-left -mt-10">
-                    <div className="londrina_font">HONG HAO MOTORBIKE TOUR</div>
-                    <div className="trip_font text-[1rem] leading-[150%] tracking-[0.01rem] mt-[3.5rem] opacity-80">
-                      Experience the raw beauty of Hà Giang with our immersive
-                      travel adventures. From rugged mountain landscapes to
-                      vibrant ethnic cultures, Hà Giang offers a truly unique
-                      and authentic experience. Explore remote villages.
-                    </div>
-                    <div className="flex flex-col gap-[0.75rem] mt-[1rem]">
-                      <FileldCheck></FileldCheck>
-                      <FileldCheck>Flexible cancellation policy</FileldCheck>
-                      <FileldCheck>Book now, pay later</FileldCheck>
-                      <FileldCheck>Fluent English-speaking guides</FileldCheck>
-                      <FileldCheck>
-                        Creating job opportunities for the Vietnamese community
-                      </FileldCheck>
-                    </div>
-                    <div className="flex items-center gap-x-4 mt-[2rem] ">
-                      <button
-                        type="button"
-                        onClick={handleResetTrigger}
-                        className="z-40 btn bg-[#DA4B19] py-[1rem] px-[2rem] rounded-lg flex justify-center items-center cursor-pointer group"
-                      >
-                        <div className="w-[4.88rem] h-[1.5rem] group-hover:w-[1rem] transition-all duration-500"></div>
-                        <ArrowBtn></ArrowBtn>
-                      </button>
-                      <button
-                        type="button"
-                        onClick={handleResetTrigger1}
-                        className="border-2 border-white py-[1rem] px-[2rem] rounded-lg flex justify-center items-center z-40 group"
-                      >
-                        <div className="w-[4.88rem] h-[1.5rem] group-hover:w-[1rem] transition-all duration-500"></div>
-                        <ArrowBtn></ArrowBtn>
-                      </button>
-                    </div>
+                  <div className="text-[#CF4124]">Tours</div>
+
+                  <div className="">
+                    <ArrowRightUp></ArrowRightUp>
                   </div>
                 </div>
                 <div
-                  className="h-[44rem] absolute -right-[9rem]"
-                  ref={refImgMotoTour}
+                  className={`w-full  ${
+                    tgSubMenu
+                      ? "opacity-100 h-[10.3rem]"
+                      : "opacity-0 h-[0.3rem]"
+                  } transition-all duration-700`}
                 >
-                  <img
-                    src={BG_motobike_full}
-                    alt=""
-                    className="h-full w-full"
-                  />
+                  <ul className="sub_menu trip_font text-[1.25rem]">
+                    <li>Best Budget</li>
+                    <li>Standard</li>
+                    <li>Premium</li>
+                  </ul>
                 </div>
               </div>
-              {/* BANNER */}
-              <div className="w-full h-[48.75rem] relative">
-                {/* video */}
-                <div className="videoSec2 w-[53rem] absolute top-[18.96rem] left-[50%] translate-x-[-50%]">
-                  <div className="relative">
-                    <video
-                      autoPlay
-                      loop
-                      muted
-                      className="w-full"
-                      src={Video}
-                    ></video>
-                    <div
-                      id="imgBgVideo"
-                      className="absolute top-0 left-0 w-full h-full"
-                    >
-                      <img src={Section2ImgVideo} alt="" className="h-full" />
-                    </div>
-                  </div>
-                </div>
-                <div className="absolute top-0 left-[50%] translate-x-[-50%]">
-                  <div>
-                    <div className="trip_font opacity-40 font-bold text-[1.125rem] mb-[0.75rem] text-center">
-                      WELCOME TO
-                    </div>
-                    <div className="londrina_font font-bold relative">
-                      HA GIANG NATURALLY
-                    </div>
-                    <div className="flex justify-center -mt-11">
-                      <img src={Beautiful} alt="" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+              <LiMenu
+                stt={2}
+                onClick={handleOpenSubMenu}
+                className={`${
+                  tgSubMenu ? "opacity-0 pointer-events-none" : "opacity-100"
+                } transition-all duration-500`}
+              >
+                Tours
+              </LiMenu>
+              <LiMenu className={`${tgSubMenu ? "borderTop" : "opacity-100"} `}>
+                Activity
+              </LiMenu>
+              <LiMenu>Destination</LiMenu>
+              <LiMenu>Blog</LiMenu>
+              <LiMenu>FAQ</LiMenu>
+              <LiMenu>Contact</LiMenu>
+            </ULMenuStyle>
           </div>
-        </div>
-        <div className="w-full bg-white relative">
-          <div className="flex">
-            <div className="w-1/2 ">
+        </BgMenuMobi>
+
+        <div className="w-full bg-white relative z-30 lg:z-auto">
+          <div className="lg:flex">
+            <div className="lg:w-1/2 ">
               <div className="sticky top-0">
-                <div className="londrina_font pl-[5rem] pt-[5.63rem]">
+                <div className="londrina_font pl-[1.5rem] lg:pl-[5rem] pt-[5.63rem]">
                   <span className="text-[#262626]">BEST TRIPS FOR YOU </span>
                 </div>
-                <div className=" w-[29.29231rem] h-[28.12494rem] ml-[6.79rem] mt-[2.44rem] mb-[10.2rem]">
+                <div className=" hidden lg:inline-block w-[29.29231rem] h-[28.12494rem] ml-[6.79rem] mt-[2.44rem] ">
                   <img src={Map_2day_3night} alt="" />
                 </div>
               </div>
             </div>
-            <div className="w-1/2 pt-[3.31rem] mr-[6.5rem] flex flex-col gap-[2rem]  ">
+            <div className="w-full lg:w-1/2 pt-[3.31rem] mr-[6.5rem] flex flex-col gap-[2rem]  ">
               <CardContent></CardContent>
               <CardContent img={HaGiangTour2}></CardContent>
               <CardContent img={HaGiangTour3}></CardContent>
               <CardContent img={HaGiangTour4}></CardContent>
               <CardContent img={HaGiangTour5}></CardContent>
-              <div className="w-[47.3125rem] h-[34.375rem] "></div>
+              <div className="w-[47.3125rem] h-[34.375rem] lg:block hidden"></div>
             </div>
           </div>
           {/* BG WEATHER FOOTER */}
@@ -331,32 +237,62 @@ const HomePage = () => {
           {/* FOOTER */}
           <Footer></Footer>
         </div>
-        <div className="fixed top-[34.75rem] right-[1.33rem]  lg:right-[10.33rem]">
-          <div className="flex flex-col justify-center items-center gap-[1rem]">
-            <div
-              className="bg-[#E64827] w-[3.125rem] h-[3.125rem]
+      </FieldLayout>
+      <div className="fixed top-[34.55rem] right-[0.5rem] z-50">
+        <div className="flex flex-col justify-center items-center gap-[1rem]">
+          <div
+            className="bg-[#E64827] w-[3.125rem] h-[3.125rem]
             font-extrabold
             rounded-full text-center flex justify-center items-center trip_font text-[0.625rem]"
-            >
-              BOOK NOW
-            </div>
-            <div className="ml-2">
-              <img src={PhoneContact} alt="" />
-            </div>
-            <div
-              onClick={() => {
-                window.scrollTo(0, 0);
-              }}
-              className="cursor-pointer"
-            >
-              <ArrowBigTopBtn></ArrowBigTopBtn>
-            </div>
+          >
+            BOOK NOW
+          </div>
+          <div className="ml-2">
+            <img src={PhoneContact} alt="" />
+          </div>
+          <div
+            onClick={() => {
+              window.scrollTo(0, 0);
+            }}
+            className="cursor-pointer"
+          >
+            <ArrowBigTopBtn></ArrowBigTopBtn>
           </div>
         </div>
-      </FieldLayout>
+      </div>
     </div>
   );
 };
+export function LiMenu({
+  children = "Home",
+  stt = 1,
+  className,
+  onClick = () => {},
+}) {
+  return (
+    <>
+      <li
+        className={` h-[3.8rem] lg:h-[3.375rem] mt-[0.825rem] pb-[1rem] ${className}`}
+      >
+        <div className="item group cursor-pointer " onClick={onClick}>
+          <div className="arrow_right group-hover:opacity-100 opacity-0 transition-all duration-500">
+            <ArrowLeft></ArrowLeft>
+          </div>
+          <div className=" group-hover:translate-x-0 translate-x-[-1.35rem] transition-all duration-700">
+            {children}
+          </div>
+          {stt == 1 ? (
+            ""
+          ) : (
+            <div className="group-hover:opacity-0 opacity-100 -ml-[1.5rem] transition-all duration-500">
+              <CaretDown></CaretDown>
+            </div>
+          )}
+        </div>
+      </li>
+    </>
+  );
+}
 export function AnimationSpin({ children = "PERSONALIZATION", status = 1 }) {
   return (
     <div className="group relative">

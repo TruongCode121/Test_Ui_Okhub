@@ -7,7 +7,9 @@ const FileldCheck = ({
   return (
     <div className="flex items-center gap-x-[0.5rem]">
       <Tick></Tick>
-      <div className="trip_font font-semibold leading-[150%]">{children}</div>
+      <div className="trip_font font-semibold leading-[150%] text-[0.875rem] lg:text-[1rem ]">
+        {children}
+      </div>
     </div>
   );
 };

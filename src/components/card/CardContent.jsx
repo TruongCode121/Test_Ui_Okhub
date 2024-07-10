@@ -4,7 +4,7 @@ import { HaGiangTour1, OverCard } from "../../assets/img";
 
 const CardContent = ({ img = HaGiangTour1 }) => {
   return (
-    <div className="card w-[47.3125rem] h-[34.375rem] pb-[1.5rem] rounded-3xl relative">
+    <div className="w-full lg:w-[47.3125rem] lg:h-[34.375rem] lg:pb-[1.5rem] rounded-3xl relative">
       <div className=" w-full h-full">
         <img src={img} alt="" className="rounded-3xl" />
       </div>
@@ -61,7 +61,9 @@ const CardContent = ({ img = HaGiangTour1 }) => {
         <div className="trip_font text-[1rem] opacity-80 tracking-[0.0125rem] text-right">
           From to
         </div>
-        <div className="trip_font text-[3rem] font-bold -mt-3">$199</div>
+        <div className="trip_font text-[2rem] lg:text-[3rem] font-bold -mt-3">
+          $199
+        </div>
       </div>
     </div>
   );

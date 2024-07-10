@@ -1,4 +1,5 @@
 import CardContent from "./CardContent";
 import CardWeather from "./CardWeather";
 import CardMenu from "./CardMenu";
-export { CardContent, CardWeather, CardMenu };
+import CardContentMobi from "./CardContentMobi";
+export { CardContent, CardWeather, CardMenu, CardContentMobi };

@@ -25,6 +25,14 @@
   font-weight: 900;
   line-height: 100%; /* 3.5rem */
 }
+.londrina_font_mobi {
+  color: #fff;
+  /* WEB/H2/BLACK */
+  font-family: "Londrina Solid";
+  font-style: normal;
+  font-weight: 900;
+  line-height: 100%; /* 3.5rem */
+}
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

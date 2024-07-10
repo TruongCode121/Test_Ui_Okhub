@@ -33,6 +33,7 @@ import Cardmenu1 from "./text_menu/Cardmenu1.png";
 import Cardmenu2 from "./text_menu/Cardmenu2.png";
 import Cardmenu3 from "./text_menu/Cardmenu3.png";
 import Cardmenu4 from "./text_menu/Cardmenu4.png";
+import BGMobiMenu from "./text_menu/BGMobiMenu.png";
 import MapSlide1 from "./banner_top/MapSlide1.png";
 import MapSlide2 from "./banner_top/MapSlide2.png";
 import MapSlide3 from "./banner_top/MapSlide3.png";
@@ -57,6 +58,9 @@ import Slide10 from "./footer/Slide10.png";
 import Slide11 from "./footer/Slide11.png";
 import Slide12 from "./footer/Slide12.png";
 import Bars from "./banner_top/Bars.png";
+import NuiMobie from "./Section2/NuiMobie.png";
+import OverMotoTourMobi from "./Section2/OverMotoTourMobi.png";
+import BGMobi from "./Section2/BGMobi.png";
 export {
   GroupMap,
   BG,
@@ -93,6 +97,7 @@ export {
   Cardmenu2,
   Cardmenu3,
   Cardmenu4,
+  BGMobiMenu,
   MapSlide1,
   MapSlide2,
   MapSlide3,
@@ -117,4 +122,7 @@ export {
   Slide11,
   Slide12,
   Bars,
+  NuiMobie,
+  OverMotoTourMobi,
+  BGMobi,
 };

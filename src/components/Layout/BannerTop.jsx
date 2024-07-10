@@ -42,7 +42,7 @@ const BannerStyless = styled.div`
         rgba(15, 73, 43, 0.2) 0%,
         rgba(15, 73, 43, 0.2) 100%
       ),
-      url(${bg_banner}) lightgray -20.28px -1132.253px / 103.142% 314.078%
+      url(${bg_banner}) lightgray -10.28px -1132.253px / 103.142% 314.078%
         no-repeat;
   }
 `;
@@ -151,7 +151,7 @@ const BannerTop = () => {
   });
   // console.log({ onScaleImg });
   return (
-    <div className="sticky top-0 w-full ">
+    <div className="sticky top-0 w-full z-0">
       <div
         className="bg-[#206545] relative w-full h-[34.375rem] lg:h-[788px] overflow-hidden"
         onMouseLeave={handleMouseLeave}
@@ -168,16 +168,20 @@ const BannerTop = () => {
                 onLeave || hoverMove > 0 ? "opacity-0" : "opacity-100"
               } transition-all duration-[2000ms]`}
             >
-              {mapImgData.map((item, index) => (
-                <div
-                  key={index + 10}
-                  className={`${
-                    selectMapImg == index ? "opacity-100" : "opacity-30"
-                  }  duration-[3000ms] transition-opacity`}
-                >
-                  <img src={selectMapImg == index ? item : ""} alt="" />
-                </div>
-              ))}
+              {mapImgData.map((item, index) => {
+                if (selectMapImg == index) {
+                  return (
+                    <div
+                      key={index + 10}
+                      className={`${
+                        selectMapImg == index ? "opacity-100" : "opacity-30"
+                      }  duration-[3000ms] transition-all`}
+                    >
+                      <img src={item} alt="" />
+                    </div>
+                  );
+                }
+              })}
             </div>
             {/* map hình sau khi hover */}
             <div
@@ -197,7 +201,7 @@ const BannerTop = () => {
         </div>
         {/* Tittle */}
         <div
-          className={` hidden lg:inline-block absolute w-full left-[50%]  ${
+          className={` hidden lg:block absolute w-full left-[50%]  ${
             continueSlide ? "-top-[15rem]" : "top-[50%]"
           }  translate-x-[-50%] translate-y-[-50%] text-center transition-all duration-[3000ms]`}
         >
@@ -231,28 +235,16 @@ const BannerTop = () => {
         </div>
         <div className=" w-full">
           <div
-            className={`absolute ${
+            className={`lg:inline-block hidden absolute ${
               continueSlide
                 ? `${
                     onScaleImg
-                      ? "lg:scale-[2.05] lg:w-[50%]  lg:bottom-[24%]  lg:translate-x-[50%]"
+                      ? "lg:scale-[2.05] lg:w-[50%] bottom-0 lg:bottom-[24%]  lg:translate-x-[50%]"
                       : " lg:w-[50%] lg:bottom-[18%] lg:scale-125 lg:translate-x-[50%]"
                   }`
                 : " translate-y-[100%]  lg:translate-y-[90%]  scale-75 lg:translate-x-[50%]"
             } transition-all duration-[2700ms]`}
           >
-            <img
-              src={imgDataBanner[selectImgBanner]}
-              alt=""
-              className={` inline-block lg:hidden object-cover transition-all duration-[2700ms]    rounded-3xl ${
-                continueSlide
-                  ? onScaleImg
-                    ? "scale-[1] h-[34.375rem]"
-                    : " w-[39.79rem] h-[20rem] scale-75 "
-                  : "w-[39.79694rem]  scale-75"
-              }`}
-            />
-            {/* w-[69.79694rem] h-[34.375rem] */}
             {imgDataBanner.map((item, index) => (
               <div
                 key={index + 10}
@@ -267,6 +259,34 @@ const BannerTop = () => {
                 />
               </div>
             ))}
+          </div>
+          {/* mobie */}
+          <div
+            className={`block lg:hidden absolute ${
+              continueSlide
+                ? `${
+                    onScaleImg
+                      ? "scale-y-[3] w-full bottom-[29%]  lg:translate-x-[50%]"
+                      : "w-full bottom-[18%] scale-x-50 scale-y-100 lg:translate-x-[50%]"
+                  }`
+                : "translate-y-[90%]  scale-x-50 scale-y-100 lg:translate-x-[50%]"
+            } transition-all duration-[2700ms]`}
+          >
+            {/* <img src={imgDataBanner[selectImgBanner]} alt="" /> */}
+            {imgDataBanner.map((item, index) => {
+              if (selectImgBanner == index) {
+                return (
+                  <div
+                    key={index + 10}
+                    className={`${
+                      selectImgBanner == index ? "opacity-100" : "opacity-30"
+                    }  duration-[1000ms] transition-opacity`}
+                  >
+                    <img src={item} alt="" className="object-cover" />
+                  </div>
+                );
+              }
+            })}
           </div>
         </div>
         {/* map and blur right - onScaleImg == true */}
@@ -318,6 +338,28 @@ const BannerTop = () => {
           } top-[50%] rotate-90 trip_font text-[12px] tracking-[0.2px] font-semibold`}
         >
           Hong Hao Travel
+        </div>
+        <div className=" hidden lg:block absolute top-[33.55rem] right-[1.5rem] ">
+          <div className="flex flex-col justify-center items-center gap-[1rem]">
+            <div
+              className="bg-[#E64827] w-[3.125rem] h-[3.125rem]
+            font-extrabold
+            rounded-full text-center flex justify-center items-center trip_font text-[0.625rem]"
+            >
+              BOOK NOW
+            </div>
+            <div className="ml-2">
+              <img src={PhoneContact} alt="" />
+            </div>
+            <div
+              onClick={() => {
+                window.scrollTo(0, 0);
+              }}
+              className="cursor-pointer"
+            >
+              <ArrowBigTopBtn></ArrowBigTopBtn>
+            </div>
+          </div>
         </div>
         <div className=" hidden lg:inline-block absolute top-[40.87rem] left-[22.79rem]">
           <div className=" bg-white w-[55rem] h-[6.5rem] pl-[2rem] pr-[0.75rem] py-[0.75rem] rounded-xl flex items-center gap-x-[1.5rem]">
